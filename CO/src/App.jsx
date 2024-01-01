@@ -3,12 +3,11 @@ import './App.css'
 import PDFfile from './PDF'
 import { PDFDownloadLink } from "@react-pdf/renderer";
 
-const MedicalForm = () => {
+export const MedicalForm = () => {
   // top of form
-  const [patientName, setPatientName] = useState('');
+  const [patientName, setPatientName] = useState('Noah');
   const [patientDOB, setPatientDOB] = useState('');
   const [pregnancyIUD, setPregnancyIUD] = useState('');
-
   // yes/no questions
   const [hasPacemaker, setHasPacemaker] = useState(null);
   const [hasCochlearImplants, setHasCochlearImplants] = useState(null);
@@ -50,6 +49,7 @@ const MedicalForm = () => {
           onChange={(e) => setPatientName(e.target.value)}
         />
       </div>
+      <PDFfile patientName={patientName} />
       <div>
         <label>PT DOB: </label>
         <input
@@ -167,7 +167,6 @@ const MedicalForm = () => {
           onChange={(e) => setPatientPhoneNum(e.target.value)}
         />
       </div>
-
       <div>
         <PDFDownloadLink document={<PDFfile />}>
           {<button>Download</button>}
