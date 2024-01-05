@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import './App.css'
 import PDFfile from './PDF'
-import { PDFDownloadLink } from "@react-pdf/renderer";
 
 export const MedicalForm = () => {
   // top of form
-  const [patientName, setPatientName] = useState('Noah');
+  const [patientName, setPatientName] = useState('');
   const [patientDOB, setPatientDOB] = useState('');
   const [pregnancyIUD, setPregnancyIUD] = useState('');
   // yes/no questions
-  const [hasPacemaker, setHasPacemaker] = useState(null);
+  const [hasPacemaker, setHasPacemaker] = useState('');
   const [hasCochlearImplants, setHasCochlearImplants] = useState(null);
   const [hasAneurysmClips, setHasAneurysmClips] = useState(null);
   const [hasStimulator, setHasStimulator] = useState(null);
@@ -26,7 +25,6 @@ export const MedicalForm = () => {
   const [bodyPart, setBodyPart] = useState('');
   const [patientPhoneNum, setPatientPhoneNum] = useState('');
 
-
   const handleSubmit = (event) => {
     event.preventDefault();
     // Process form data
@@ -39,7 +37,7 @@ export const MedicalForm = () => {
   };
 
   return (
-    <div onSubmit={handleSubmit}>
+    <div onChange={handleSubmit}>
       {/* top of form */}
       <div>
         <label>PT NAME: </label>
@@ -49,7 +47,6 @@ export const MedicalForm = () => {
           onChange={(e) => setPatientName(e.target.value)}
         />
       </div>
-      <PDFfile patientName={patientName} />
       <div>
         <label>PT DOB: </label>
         <input
@@ -69,7 +66,7 @@ export const MedicalForm = () => {
       {/* yes/ no questions */}
       <div>
         <label>Do they have a pacemaker or other heart implanted device such as a defibrillator?</label>
-        <input type="radio" name="pacemaker" value="yes" onChange={() => setHasPacemaker(true)} /> Yes
+        <input type="radio" name="pacemaker" value="yes" onChange={() => setHasPacemaker('true')} /> Yes
         <input type="radio" name="pacemaker" value="no" onChange={() => setHasPacemaker(false)} /> No
         {/* If yes, they will have to be scheduled at another facility, most likely at a hospital if it is MRI safe. IT WILL NOT BE DONE HERE! */}
       </div>
@@ -167,12 +164,9 @@ export const MedicalForm = () => {
           onChange={(e) => setPatientPhoneNum(e.target.value)}
         />
       </div>
-      <div>
-        <PDFDownloadLink document={<PDFfile />}>
-          {<button>Download</button>}
-        </PDFDownloadLink>
-      </div>
+      <PDFfile patientName={patientName} hasPacemaker={hasPacemaker} />
     </div>
+
   );
 };
 

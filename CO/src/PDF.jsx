@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
+import { Page, Text, View, Document, StyleSheet, PDFViewer } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
     page: {
@@ -13,25 +13,50 @@ const styles = StyleSheet.create({
     }
 });
 
-const PDFfile = ({ patientName }) => {
+
+
+const PDFfile = ({ patientName, hasPacemaker }) => {
     const [localPatientName, setLocalPatientName] = useState('');
-    console.log(localPatientName + '*')
+    const [localPace, setLocalPace] = useState('');
+
+
+    const updateLocalPatientName = (newPatientName) => {
+        if (newPatientName !== null && newPatientName !== undefined) {
+            setLocalPatientName(newPatientName);
+        }
+    };
+
     useEffect(() => {
         // Update localPatientName when patientName prop changes
-        setLocalPatientName(patientName);
+        updateLocalPatientName(patientName);
     }, [patientName]);
 
-    return (
-        <Document>
-            <Page size="A4" style={styles.page}>
-                <View style={styles.section}>
-                    <Text>Section #1</Text>
-                </View>
-                <View style={styles.section}>
-                    <Text>Patient Name in PDF: {localPatientName} </Text>
-                </View>
-            </Page>
-        </Document>)
-};
-export default PDFfile;
+    const updateLocalPace = (newPace) => {
+        if (newPace !== null) {
+            setLocalPace(newPace);
+        }
+    };
 
+    useEffect(() => {
+        // Update localPatientName when patientName prop changes
+        updateLocalPace(hasPacemaker);
+    }, [hasPacemaker]);
+
+
+    const renderPDFContent = () => (
+        <PDFViewer width="100%" height="500px">
+            <Document>
+                <Page size="A4">
+                    <View >
+                        <Text> Patient name in PDF: {localPatientName} </Text>
+                        <Text> Patient pacemaker in PDF: {localPace} </Text>
+                    </View>
+                </Page>
+            </Document>
+        </PDFViewer>
+    );
+
+    return renderPDFContent();
+};
+
+export default PDFfile;
