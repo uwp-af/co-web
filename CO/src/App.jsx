@@ -7,16 +7,16 @@ export const MedicalForm = () => {
   const [patientName, setPatientName] = useState('');
   const [patientDOB, setPatientDOB] = useState('');
   const [pregnancyIUD, setPregnancyIUD] = useState('');
-  // yes/no questions
-  const [hasPacemaker, setHasPacemaker] = useState(null);
-  const [hasCochlearImplants, setHasCochlearImplants] = useState(null);
-  const [hasAneurysmClips, setHasAneurysmClips] = useState(null);
-  const [hasStimulator, setHasStimulator] = useState(null);
-  const [hasCataractSurgery, setHasCataractSurgery] = useState(null);
-  const [hasRetainedWires, setHasRetainedWires] = useState(null);
-  const [hasStent, setHasStent] = useState(null);
-  const [hasMetalInEyes, setHasMetalInEyes] = useState(null);
-  const [hasForeignBodies, setHasForeignBodies] = useState(null);
+  // yes/no questions"
+  const [hasPacemaker, setHasPacemaker] = useState('');
+  const [hasCochlearImplants, setHasCochlearImplants] = useState('');
+  const [hasAneurysmClips, setHasAneurysmClips] = useState('');
+  const [hasStimulator, setHasStimulator] = useState('');
+  const [hasCataractSurgery, setHasCataractSurgery] = useState('');
+  const [hasRetainedWires, setHasRetainedWires] = useState('');
+  const [hasStent, setHasStent] = useState('');
+  const [hasMetalInEyes, setHasMetalInEyes] = useState('');
+  const [hasForeignBodies, setHasForeignBodies] = useState('');
 
   // bottom of form
   const [formFiller, setFormFiller] = useState('');
@@ -31,7 +31,7 @@ export const MedicalForm = () => {
     console.log({
       patientName, patientDOB, pregnancyIUD,
       hasPacemaker, hasCochlearImplants, hasAneurysmClips, hasStimulator,
-      hasCataractSurgery, retainedWires, before1985, hasStent, stentLocation, bodyPartScanned,
+      hasCataractSurgery, retainedWires, before1985, hasStent, hasRetainedWires, stentLocation, bodyPartScanned,
       hadMRISinceStent, mriLocation, hasStentCard,
       hasMetalInEyes, hasForeignBodies, formFiller, date, orderingDoctor, bodyPart, patientPhoneNum
     });
@@ -49,11 +49,10 @@ export const MedicalForm = () => {
           onChange={(e) => setPatientName(e.target.value)}
         />
       </div>
-      <PDFfile patientName={patientName} />
       <div>
         <label>PT DOB: </label>
         <input
-          type="dob"
+          type="date"
           value={patientDOB}
           onChange={(e) => setPatientDOB(e.target.value)}
         />
@@ -69,54 +68,54 @@ export const MedicalForm = () => {
       {/* yes/ no questions */}
       <div>
         <label>Do they have a pacemaker or other heart implanted device such as a defibrillator?</label>
-        <input type="radio" name="pacemaker" value="yes" onChange={() => setHasPacemaker(true)} /> Yes
-        <input type="radio" name="pacemaker" value="no" onChange={() => setHasPacemaker(false)} /> No
+        <input type="radio" name="pacemaker" value="yes" onChange={() => setHasPacemaker("true")} /> Yes
+        <input type="radio" name="pacemaker" value="no" onChange={() => setHasPacemaker("false")} /> No
         {/* If yes, they will have to be scheduled at another facility, most likely at a hospital if it is MRI safe. IT WILL NOT BE DONE HERE! */}
       </div>
       <div>
         <label>Do they have cochlear implants, or implanted hearing aids?</label>
-        <input type="radio" name="cochlearImplants" value="yes" onChange={() => setHasCochlearImplants(true)} /> Yes
-        <input type="radio" name="cochlearImplants" value="no" onChange={() => setHasCochlearImplants(false)} /> No
+        <input type="radio" name="cochlearImplants" value="yes" onChange={() => setHasCochlearImplants("true")} /> Yes
+        <input type="radio" name="cochlearImplants" value="no" onChange={() => setHasCochlearImplants("false")} /> No
         {/* If yes, they cannot be scanned. */}
       </div>
       <div>
         <label>Do they have Aneurysm clips?</label>
-        <input type="radio" name="aneurysmClips" value="yes" onChange={() => setHasAneurysmClips(true)} /> Yes
-        <input type="radio" name="aneurysmClips" value="no" onChange={() => setHasAneurysmClips(false)} /> No
+        <input type="radio" name="aneurysmClips" value="yes" onChange={() => setHasAneurysmClips("true")} /> Yes
+        <input type="radio" name="aneurysmClips" value="no" onChange={() => setHasAneurysmClips("false")} /> No
         {/* If yes, they cannot be scanned. */}
       </div>
       <div>
         <label>Do they have a spinal cord stimulator/or surgically implanted electronic implants?</label>
-        <input type="radio" name="stimulator" value="yes" onChange={() => setHasStimulator(true)} /> Yes
-        <input type="radio" name="stimulator" value="no" onChange={() => setHasStimulator(false)} /> No
+        <input type="radio" name="stimulator" value="yes" onChange={() => setHasStimulator("true")} /> Yes
+        <input type="radio" name="stimulator" value="no" onChange={() => setHasStimulator("false")} /> No
         {/* If yes, schedule at MH Imaging. */}
       </div>
       <div>
         <label>Cataract surgery/intraocular lens implanted before 1985?</label>
-        <input type="radio" name="cataractSurgery" value="yes" onChange={() => setHasCataractSurgery(true)} /> Yes
-        <input type="radio" name="cataractSurgery" value="no" onChange={() => setHasCataractSurgery(false)} /> No
+        <input type="radio" name="cataractSurgery" value="yes" onChange={() => setHasCataractSurgery("true")} /> Yes
+        <input type="radio" name="cataractSurgery" value="no" onChange={() => setHasCataractSurgery("false")} /> No
         {/* Before cannot be scanned. After 1985 can be scanned, must be approved by Proscan prior and scheduled at least 3 days out. */}
       </div>
       <div>
         <label>Do they have any retained wires/leads, endoscopic clips or metallic surgical clips?</label>
-        <input type="radio" name="retainedWires" value="yes" onChange={() => setHasRetainedWires(true)} /> Yes
-        <input type="radio" name="retainedWires" value="no" onChange={() => setHasRetainedWires(false)} /> No
+        <input type="radio" name="retainedWires" value="yes" onChange={() => setHasRetainedWires("true")} /> Yes
+        <input type="radio" name="retainedWires" value="no" onChange={() => setHasRetainedWires("false")} /> No
 
       </div>
       <div>
         <label>Do they have a stent of any kind?</label>
-        <input type="radio" name="stent" value="yes" onChange={() => setHasStent(true)} /> Yes
-        <input type="radio" name="stent" value="no" onChange={() => setHasStent(false)} /> No
+        <input type="radio" name="stent" value="yes" onChange={() => setHasStent("true")} /> Yes
+        <input type="radio" name="stent" value="no" onChange={() => setHasStent("false")} /> No
       </div>
       <div>
         <label>Have they ever had metal in their eyes, worked with metal/grinding/welding?</label>
-        <input type="radio" name="metalEyes" value="yes" onChange={() => setHasMetalInEyes(true)} /> Yes
-        <input type="radio" name="metalEyes" value="no" onChange={() => setHasMetalInEyes(false)} /> No
+        <input type="radio" name="metalEyes" value="yes" onChange={() => setHasMetalInEyes("true")} /> Yes
+        <input type="radio" name="metalEyes" value="no" onChange={() => setHasMetalInEyes("false")} /> No
       </div>
       <div>
         <label>Do they have any foreign bodies such as BB's, bullets, shrapnel?</label>
-        <input type="radio" name="foreignBodies" value="yes" onChange={() => setHasForeignBodies(true)} /> Yes
-        <input type="radio" name="foreignBodies" value="no" onChange={() => setHasForeignBodies(false)} /> No
+        <input type="radio" name="foreignBodies" value="yes" onChange={() => setHasForeignBodies("true")} /> Yes
+        <input type="radio" name="foreignBodies" value="no" onChange={() => setHasForeignBodies("false")} /> No
       </div>
       <div>
         ** MRI personnel will take all the necessary steps for approval from the
@@ -167,7 +166,25 @@ export const MedicalForm = () => {
           onChange={(e) => setPatientPhoneNum(e.target.value)}
         />
       </div>
-      <PDFfile patientName={patientName} hasPacemaker={hasPacemaker} />
+      <PDFfile
+        patientName={patientName}
+        patientDOB={patientDOB}
+        pregnancyIUD={pregnancyIUD}
+        hasPacemaker={hasPacemaker}
+        hasCochlearImplants={hasCochlearImplants}
+        hasAneurysmClips={hasAneurysmClips}
+        hasStimulator={hasStimulator}
+        hasCataractSurgery={hasCataractSurgery}
+        hasRetainedWires={hasRetainedWires}
+        hasStent={hasStent}
+        hasMetalInEyes={hasMetalInEyes}
+        hasForeignBodies={hasForeignBodies}
+        formFiller={formFiller}
+        date={date}
+        orderingDoctor={orderingDoctor}
+        bodyPart={bodyPart}
+        patientPhoneNum={patientPhoneNum}
+      />
     </div>
   );
 };
