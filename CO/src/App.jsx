@@ -42,27 +42,32 @@ export const MedicalForm = () => {
     const shouldContinue = (questionState) => questionState !== true;
 
     return (
-        <div onSubmit={handleSubmit}>
-            {/* Top of form */}
-            <div>
-                <label>PT NAME: </label>
-                <input
-                    type="text"
-                    value={patientName}
-                    onChange={(e) => setPatientName(e.target.value)}
-                />
+        <form onSubmit={handleSubmit} className="medical-form">
+            <div className="form-header">
+                <img src="/mriheader.png" alt="MRI Header" className="header-image" />
             </div>
-            <PDFfile patientName={patientName} />
-            <div>
-                <label>PT DOB: </label>
-                <input
-                    type="date"
-                    value={patientDOB}
-                    onChange={(e) => setPatientDOB(e.target.value)}
-                />
-            </div>
-            <div>
-                <label>If the patient is pregnant, it will only be approved by her OBGYN. If the patient has an IUD, which one? </label>
+            <div className="form-body">
+                <div className="form-row">
+                    <label htmlFor="patientName" className="pt-label">PT NAME:</label>
+                    <input
+                        type="text"
+                        id="patientName"
+                        name="patientName"
+                        value={patientName}
+                        onChange={(e) => setPatientName(e.target.value)}
+                    />
+                    <label htmlFor="patientDOB" className="dob-label">PT DOB:</label>
+                    <input
+                        type="date"
+                        id="patientDOB"
+                        name="patientDOB"
+                        value={patientDOB}
+                        onChange={(e) => setPatientDOB(e.target.value)}
+                        placeholder="MM / DD / YYYY"
+                    />
+                </div>
+            <div className="pregnant-blurb">
+                <label>** If the patient is pregnant, it will only be approved by her OBGYN. If the patient has an IUD, which one? </label>
                 <input
                     type="text"
                     value={pregnancyIUD}
@@ -72,7 +77,7 @@ export const MedicalForm = () => {
 
             {/* Yes/No questions */}
             <div>
-                <label>Do they have a pacemaker or other heart implanted device such as a defibrillator?</label>
+                <label>1. Do they have a pacemaker or other heart implanted device such as a defibrillator?</label>
                 <input type="radio" name="pacemaker" value="yes" onChange={() => setHasPacemaker(true)} /> Yes
                 <input type="radio" name="pacemaker" value="no" onChange={() => setHasPacemaker(false)} /> No
                 {hasPacemaker === true && <p>Patient cannot be scanned.</p>}
@@ -81,7 +86,7 @@ export const MedicalForm = () => {
             {shouldContinue(hasPacemaker) && (
                 <>
                     <div>
-                        <label>Do they have cochlear implants, or implanted hearing aids?</label>
+                        <label>2. Do they have cochlear implants, or implanted hearing aids?</label>
                         <input type="radio" name="cochlearImplants" value="yes" onChange={() => setHasCochlearImplants(true)} /> Yes
                         <input type="radio" name="cochlearImplants" value="no" onChange={() => setHasCochlearImplants(false)} /> No
                         {hasCochlearImplants === true && <p>Patient cannot be scanned.</p>}
@@ -90,7 +95,7 @@ export const MedicalForm = () => {
                     {shouldContinue(hasCochlearImplants) && (
                         <>
                             <div>
-                                <label>Do they have Aneurysm clips?</label>
+                                <label>3. Do they have Aneurysm clips?</label>
                                 <input type="radio" name="aneurysmClips" value="yes" onChange={() => setHasAneurysmClips(true)} /> Yes
                                 <input type="radio" name="aneurysmClips" value="no" onChange={() => setHasAneurysmClips(false)} /> No
                                 {hasAneurysmClips === true && <p>Patient cannot be scanned.</p>}
@@ -99,7 +104,7 @@ export const MedicalForm = () => {
                             {shouldContinue(hasAneurysmClips) && (
                                 <>
                                     <div>
-                                        <label>Do they have a spinal cord stimulator/or surgically implanted electronic implants?</label>
+                                        <label>4. Do they have a spinal cord stimulator/or surgically implanted electronic implants?</label>
                                         <input type="radio" name="stimulator" value="yes" onChange={() => setHasStimulator(true)} /> Yes
                                         <input type="radio" name="stimulator" value="no" onChange={() => setHasStimulator(false)} /> No
                                         {hasStimulator === true && <p>Schedule at MH Imaging.</p>}
@@ -108,7 +113,7 @@ export const MedicalForm = () => {
                                     {shouldContinue(hasStimulator) && (
                                         <>
                                             <div>
-                                                <label>Cataract surgery/intraocular lens implanted before 1985?</label>
+                                                <label>5. Cataract surgery/intraocular lens implanted before 1985?</label>
                                                 <input type="radio" name="cataractSurgery" value="yes" onChange={() => setHasCataractSurgery(true)} /> Yes
                                                 <input type="radio" name="cataractSurgery" value="no" onChange={() => setHasCataractSurgery(false)} /> No
                                                 {hasCataractSurgery === true && (
@@ -126,14 +131,14 @@ export const MedicalForm = () => {
                                             </div>
 
                                             <div>
-                                                <label>Do they have any retained wires/leads, endoscopic clips or metallic surgical clips?</label>
+                                                <label>6. Do they have any retained wires/leads, endoscopic clips or metallic surgical clips?</label>
                                                 <input type="radio" name="retainedWires" value="yes" onChange={() => setRetainedWires(true)} /> Yes
                                                 <input type="radio" name="retainedWires" value="no" onChange={() => setRetainedWires(false)} /> No
                                                 {retainedWires === true && <p>Patients need an AP and Lateral X-Ray of the area including getting device cards or info about it. Needs to be cleared by Proscan and scheduled at least 3 days out.</p>}
                                             </div>
 
                                             <div>
-                                                <label>Do they have a stent of any kind?</label>
+                                                <label>7. Do they have a stent of any kind?</label>
                                                 <input type="radio" name="stent" value="yes" onChange={() => setHasStent(true)} /> Yes
                                                 <input type="radio" name="stent" value="no" onChange={() => setHasStent(false)} /> No
                                             </div>
@@ -187,17 +192,20 @@ export const MedicalForm = () => {
                                             )}
 
                                             <div>
-                                                <label>Have they ever had metal in their eyes, worked with metal/grinding/welding?</label>
+                                                <label>7. Have they ever had metal in their eyes, worked with metal/grinding/welding?</label>
                                                 <input type="radio" name="metalEyes" value="yes" onChange={() => setHasMetalInEyes(true)} /> Yes
                                                 <input type="radio" name="metalEyes" value="no" onChange={() => setHasMetalInEyes(false)} /> No
                                                 {hasMetalInEyes === true && <p>Go to Foreign Metal Report.</p>}
                                             </div>
 
                                             <div>
-                                                <label>Do they have any foreign bodies such as BB's, bullets, or shrapnel?</label>
+                                                <label>8. Do they have any foreign bodies such as BB's, bullets, or shrapnel?</label>
                                                 <input type="radio" name="foreignBodies" value="yes" onChange={() => setHasForeignBodies(true)} /> Yes
                                                 <input type="radio" name="foreignBodies" value="no" onChange={() => setHasForeignBodies(false)} /> No
                                                 {hasForeignBodies === true && <p>Go to Foreign Metal Report.</p>}
+                                            </div>
+                                            <div className="info-blurb">
+                                                ** MRI personnel will take all the necessary steps for approval from the scanned device cards, and X-Rays taken.  Have the patient go in the waiting room to fill out the more extensive questionnaire.  When completed, they will hand it in to the front desk to make sure everything is filled out. Any questions can be answered by a tech in the building.  They will be given a sheet to take home that will hopefully answer any and all questions prior.
                                             </div>
                                         </>
                                     )}
@@ -209,52 +217,68 @@ export const MedicalForm = () => {
             )}
 
             {/* Bottom of form */}
-            <div>
-                <label>PERSON COMPLETING FORM: </label>
-                <input
-                    type="text"
-                    value={formFiller}
-                    onChange={(e) => setFormFiller(e.target.value)}
-                />
-            </div>
-            <div>
-                <label>DATE: </label>
-                <input
-                    type="date"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                />
-            </div>
-            <div>
-                <label>ORDERING DOCTOR: </label>
-                <input
-                    type="text"
-                    value={orderingDoctor}
-                    onChange={(e) => setOrderingDoctor(e.target.value)}
-                />
-            </div>
-            <div>
-                <label>BODY PART: </label>
-                <input
-                    type="text"
-                    value={bodyPart}
-                    onChange={(e) => setBodyPart(e.target.value)}
-                />
-            </div>
-            <div>
-                <label>PT PHONE #: </label>
-                <input
-                    type="text"
-                    value={patientPhoneNum}
-                    onChange={(e) => setPatientPhoneNum(e.target.value)}
-                />
-            </div>
+                <div className="form-row">
+                    <div className="form-group">
+                        <label htmlFor="formFiller" className="formFiller">PERSON COMPLETING FORM:</label>
+                        <input
+                            type="text"
+                            id="formFiller"
+                            name="formFiller"
+                            value={formFiller}
+                            onChange={(e) => setFormFiller(e.target.value)}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="date" className="formDate">DATE:</label>
+                        <input
+                            type="date"
+                            id="date"
+                            name="date"
+                            value={date}
+                            onChange={(e) => setDate(e.target.value)}
+                        />
+                    </div>
+                </div>
+                <div className="form-inline-group">
+                    <div className="form-group input-short">
+                        <label htmlFor="orderingDoctor" className="textBeforeBox">ORDERING DOCTOR:</label>
+                        <input
+                            type="text"
+                            id="orderingDoctor"
+                            name="orderingDoctor"
+                            value={orderingDoctor}
+                            onChange={(e) => setOrderingDoctor(e.target.value)}
+                        />
+                    </div>
+                    <div className="form-group input-short">
+                        <label htmlFor="bodyPart" className="textBeforeBox">BODY PART:</label>
+                        <input
+                            type="text"
+                            id="bodyPart"
+                            name="bodyPart"
+                            value={bodyPart}
+                            onChange={(e) => setBodyPart(e.target.value)}
+                        />
+                    </div>
+                    <div className="form-group input-short">
+                        <label htmlFor="patientPhoneNum" className="textBeforeBox">PT PHONE #:</label>
+                        <input
+                            type="text"
+                            id="patientPhoneNum"
+                            name="patientPhoneNum"
+                            value={patientPhoneNum}
+                            onChange={(e) => setPatientPhoneNum(e.target.value)}
+                        />
+                    </div>
+                </div>
+
             <div>
                 <PDFDownloadLink document={<PDFfile />}>
                     {<button>Download</button>}
                 </PDFDownloadLink>
             </div>
         </div>
+</form>
     );
 };
 
